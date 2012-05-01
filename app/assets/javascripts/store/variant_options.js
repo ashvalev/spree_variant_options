@@ -1,4 +1,4 @@
-function object_keys = function(obj){
+function object_keys(obj) {
   var a = [];
   $.each(obj, function(k){ a.push(k) });
   return a;
