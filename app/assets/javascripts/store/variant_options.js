@@ -1,10 +1,8 @@
-$.extend({
-  keys: function(obj){
-    var a = [];
-    $.each(obj, function(k){ a.push(k) });
-    return a;
-  }
-});
+function object_keys = function(obj){
+  var a = [];
+  $.each(obj, function(k){ a.push(k) });
+  return a;
+}
 
 if (!Array.indexOf) Array.prototype.indexOf = function(obj) {
   for(var i = 0; i < this.length; i++){
@@ -83,7 +81,7 @@ function VariantOptions(options, allow_backorders, allow_select_outofstock) {
     $.each(sels, function(key, value) {
       key = value.split('-');
       var v = options[key[0]][key[1]];
-      keys = $.keys(v);
+      keys = object_keys(v);
       var m = Array.find_matches(selection.concat(keys));
       if (selection.length == 0) {
         selection = keys;
@@ -93,7 +91,7 @@ function VariantOptions(options, allow_backorders, allow_select_outofstock) {
     });
     btns.removeClass('in-stock out-of-stock unavailable').each(function(i, element) {
       variants = get_variant_objects(element.rel);
-      keys = $.keys(variants);
+      keys = object_keys(variants);
       if (keys.length == 0) {
         disable($(element).addClass('unavailable locked').unbind('click'));
       } else if (keys.length == 1) {
@@ -121,12 +119,12 @@ function VariantOptions(options, allow_backorders, allow_select_outofstock) {
         opt = options[otid];
         if (opt) {
           opv = opt[ovid];
-          ids = $.keys(opv);
+          ids = object_keys(opv);
           if (opv && ids.length) {
             var j = ids.length;
             while (j--) {
               obj = opv[ids[j]];
-              if (obj && $.keys(obj).length && 0 <= selection.indexOf(obj.id.toString())) {
+              if (obj && object_keys(obj).length && 0 <= selection.indexOf(obj.id.toString())) {
                 variants[obj.id] = obj;
               }
             }
