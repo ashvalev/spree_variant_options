@@ -33,6 +33,7 @@ function VariantOptions(options, allow_backorders, allow_select_outofstock) {
   var options = options;
   var allow_backorders = allow_backorders;
   var allow_select_outofstock = allow_select_outofstock;
+	var autoselect = true;
   var variant, divs, parent, index = 0;
   var selection = [];
   var buttons;
@@ -44,6 +45,11 @@ function VariantOptions(options, allow_backorders, allow_select_outofstock) {
     enable(parent.find('a.option-value'));
     toggle();
     $('.clear-option a.clear-button').hide().click(handle_clear);
+    if (autoselect) {
+      divs.each(function(){
+        $(this).find("ul.variant-option-values li a.in-stock:first").click();
+      });
+    }
   }
 
   function get_index(parent) {
